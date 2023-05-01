@@ -3,7 +3,7 @@
 
 # include "Animal.hpp"
 
-class Cat: public Animal
+class Cat: public virtual Animal
 {
 	public:
 		Cat(void);

@@ -1,30 +1,26 @@
 #include <iostream>
 
-#include "Animal.hpp"
+#include "WrongCat.hpp"
 
 /*
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
-Animal::Animal(): _type("Animal") {
-	std::cout << "Animal Default Constructor" << std::endl;
+WrongCat::WrongCat(): WrongAnimal("WrongCat") {
+	std::cout << "WrongCat Default Constructor" << std::endl;
 }
 
-Animal::Animal( const Animal & src ) {
-	std::cout << "Animal Copy Constructor" << std::endl;
+WrongCat::WrongCat( const WrongCat & src ): WrongAnimal("WrongCat") {
+	std::cout << "WrongCat Copy Constructor" << std::endl;
 	*this = src;
-}
-
-Animal::Animal(std::string type): _type(type) {
-	std::cout << "Animal User Defined Constructor" << std::endl;
 }
 
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
 */
 
-Animal::~Animal() {
-	std::cout << "Animal Destructor" << std::endl;
+WrongCat::~WrongCat() {
+	std::cout << "WrongCat Destructor" << std::endl;
 }
 
 
@@ -32,9 +28,9 @@ Animal::~Animal() {
 ** --------------------------------- OVERLOAD ---------------------------------
 */
 
-Animal & Animal::operator=( Animal const & rhs )
+WrongCat & WrongCat::operator=( WrongCat const & rhs )
 {
-	std::cout << "Animal Assign Operator" << std::endl;
+	std::cout << "WrongCat Assign Operator" << std::endl;
 	if (this != &rhs)
 	{
 		this->_type = rhs._type;
@@ -46,12 +42,8 @@ Animal & Animal::operator=( Animal const & rhs )
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
-void Animal::makeSound(void) const {
-	std::cout << "..." << std::endl;
-}
-
-std::string Animal::getType(void) const {
-	return (this->_type);
+void WrongCat::makeSound(void) const {
+	std::cout << "W...MEOW" << std::endl;
 }
 
 /*

@@ -7,6 +7,9 @@ SOURCES		:=	main.cpp \
 				Animal.cpp \
 				Dog.cpp \
 				Cat.cpp \
+				WrongAnimal.cpp \
+				WrongDog.cpp \
+				WrongCat.cpp \
 
 #The Directories, Source, Includes, Dependencies
 TESTDIR		:=	test
