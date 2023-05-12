@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 13:59:00 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/12 15:33:08 by seongspa         ###   ########.fr       */
+/*   Created: 2023/05/01 13:59:05 by seongspa          #+#    #+#             */
+/*   Updated: 2023/05/01 13:59:23 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
-#include "Cat.hpp"
+#include "WrongAnimal.hpp"
 
 /*
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
-Cat::Cat(): IAnimal("Cat") {
-	std::cout << "Cat Default Constructor" << std::endl;
-	this->_brain = new Brain();
+WrongAnimal::WrongAnimal(): _type("WrongAnimal") {
+	std::cout << "WrongAnimal Default Constructor" << std::endl;
 }
 
-Cat::Cat( const Cat & src ): IAnimal("Cat") {
-	std::cout << "Cat Copy Constructor" << std::endl;
+WrongAnimal::WrongAnimal( const WrongAnimal & src ) {
+	std::cout << "WrongAnimal Copy Constructor" << std::endl;
 	*this = src;
+}
+
+WrongAnimal::WrongAnimal(std::string type): _type(type) {
+	std::cout << "WrongAnimal User Defined Constructor" << std::endl;
 }
 
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
 */
 
-Cat::~Cat() {
-	if (this->_brain) {
-		delete this->_brain;
-		this->_brain = NULL;
-	}
-	std::cout << "Cat Destructor" << std::endl;
+WrongAnimal::~WrongAnimal() {
+	std::cout << "WrongAnimal Destructor" << std::endl;
 }
 
 
@@ -45,19 +44,12 @@ Cat::~Cat() {
 ** --------------------------------- OVERLOAD ---------------------------------
 */
 
-Cat & Cat::operator=( Cat const & rhs )
+WrongAnimal & WrongAnimal::operator=( WrongAnimal const & rhs )
 {
-	IAnimal::operator=(rhs);
-	std::cout << "Cat Deep Copy Assign Operator" << std::endl;
-	if (this != &rhs) {
-		if (rhs._brain && this->_brain == NULL) {
-			this->_brain = new Brain(*rhs._brain);
-		} else if (rhs._brain && this->_brain)
-			*(this->_brain) = *(rhs._brain);
-		else if (rhs._brain == NULL && this->_brain) {
-			delete this->_brain;
-			this->_brain = NULL;
-		}
+	std::cout << "WrongAnimal Assign Operator" << std::endl;
+	if (this != &rhs)
+	{
+		this->_type = rhs._type;
 	}
 	return *this;
 }
@@ -66,8 +58,12 @@ Cat & Cat::operator=( Cat const & rhs )
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
-void Cat::makeSound(void) const {
-	std::cout << "MEOW" << std::endl;
+void WrongAnimal::makeSound(void) const {
+	std::cout << "Wrong..." << std::endl;
+}
+
+std::string WrongAnimal::getType(void) const {
+	return (this->_type);
 }
 
 /*

@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IAnimal.hpp                                        :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 13:59:00 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/12 15:40:32 by seongspa         ###   ########.fr       */
+/*   Created: 2023/05/01 13:59:06 by seongspa          #+#    #+#             */
+/*   Updated: 2023/05/01 13:59:22 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_ANIMAL_HPP
-# define I_ANIMAL_HPP
+#ifndef WRONG_ANIMAL_HPP
+# define WRONG_ANIMAL_HPP
 
 # include <string>
 
-class IAnimal
+class WrongAnimal
 {
 	public:
-		virtual ~IAnimal(void);
+		WrongAnimal(void);
+		WrongAnimal(std::string type);
+		WrongAnimal(WrongAnimal const & src);
+		~WrongAnimal(void);
 
-		virtual void makeSound(void) const = 0;
+		WrongAnimal & operator=( WrongAnimal const & rhs );
+
+		void makeSound(void) const;
 		std::string getType(void) const;
 
 	protected:
-		IAnimal(std::string type);
-		IAnimal(IAnimal const & src);
-		IAnimal & operator=( IAnimal const & rhs );
-
 		std::string _type;
 
 	private:
-		IAnimal(void);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:04 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/12 13:19:25 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:41:55 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int main()
     Dog coco;
     coco = Dog();
     
-    system("leaks animal");
     return 0;
 }

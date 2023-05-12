@@ -6,7 +6,7 @@
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:02 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/01 16:41:29 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:34:07 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 Dog::Dog(): IAnimal("Dog") {
 	std::cout << "Dog Default Constructor" << std::endl;
+	this->_brain = new Brain();
 }
 
 Dog::Dog( const Dog & src ): IAnimal("Dog") {
@@ -32,6 +33,10 @@ Dog::Dog( const Dog & src ): IAnimal("Dog") {
 */
 
 Dog::~Dog() {
+	if (this->_brain) {
+		delete this->_brain;
+		this->_brain = NULL;
+	}
 	std::cout << "Dog Destructor" << std::endl;
 }
 
@@ -42,8 +47,18 @@ Dog::~Dog() {
 
 Dog & Dog::operator=( Dog const & rhs )
 {
-	std::cout << "Dog Deep Copy Assign Operator" << std::endl;
 	IAnimal::operator=(rhs);
+	std::cout << "Dog Deep Copy Assign Operator" << std::endl;
+	if (this != &rhs) {
+		if (rhs._brain && this->_brain == NULL) {
+			this->_brain = new Brain(*rhs._brain);
+		} else if (rhs._brain && this->_brain)
+			*(this->_brain) = *(rhs._brain);
+		else if (rhs._brain == NULL && this->_brain) {
+			delete this->_brain;
+			this->_brain = NULL;
+		}
+	}
 	return *this;
 }
 

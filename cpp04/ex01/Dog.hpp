@@ -6,7 +6,7 @@
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:03 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/12 13:37:34 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:34:28 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Dog: public virtual Animal
 
 		void makeSound(void) const;
 	
-		private:
+	private:
 		Brain * _brain;
 };
 

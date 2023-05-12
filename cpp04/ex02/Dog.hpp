@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Dog copy.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:03 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/01 16:41:59 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:33:33 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DOG_HPP
 
 # include "IAnimal.hpp"
+# include "Brain.hpp"
 
 class Dog: public virtual IAnimal
 {
@@ -25,6 +26,9 @@ class Dog: public virtual IAnimal
 		Dog & operator=( Dog const & rhs );
 
 		void makeSound(void) const;
+	
+	private:
+		Brain * _brain;
 };
 
 #endif

@@ -20,7 +20,6 @@
 
 IAnimal::IAnimal(): _type("IAnimal") {
 	std::cout << "IAnimal Default Constructor" << std::endl;
-	this->_brain = new Brain();
 }
 
 IAnimal::IAnimal( const IAnimal & src ) {
@@ -30,7 +29,6 @@ IAnimal::IAnimal( const IAnimal & src ) {
 
 IAnimal::IAnimal(std::string type): _type(type) {
 	std::cout << "IAnimal User Defined Constructor" << std::endl;
-	this->_brain = new Brain();
 }
 
 /*
@@ -39,8 +37,6 @@ IAnimal::IAnimal(std::string type): _type(type) {
 
 IAnimal::~IAnimal() {
 	std::cout << "IAnimal Destructor" << std::endl;
-	if (this->_brain)
-		delete this->_brain;
 }
 
 
@@ -53,15 +49,6 @@ IAnimal & IAnimal::operator=( IAnimal const & rhs )
 	std::cout << "IAnimal Deep Copy Assign Operator" << std::endl;
 	if (this != &rhs)
 	{
-		if (this->_brain && rhs._brain)
-			*this->_brain = *rhs._brain;
-		else if (this->_brain && !rhs._brain) {
-			delete this->_brain;
-			this->_brain = NULL;
-		} else if (!this->_brain && rhs._brain) {
-			this->_brain = new Brain(*rhs._brain);
-		} else
-			this->_brain = NULL;
 		this->_type = rhs._type;
 	}
 	return *this;
