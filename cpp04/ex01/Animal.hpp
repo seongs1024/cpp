@@ -6,7 +6,7 @@
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:00 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/01 14:59:09 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:02:44 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ANIMAL_HPP
 
 # include <string>
-# include "Brain.hpp"
 
 class Animal
 {
@@ -31,9 +30,6 @@ class Animal
 
 	protected:
 		std::string _type;
-
-	private:
-		Brain *	_brain;
 };
 
 #endif
