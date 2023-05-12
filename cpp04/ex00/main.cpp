@@ -6,7 +6,7 @@
 /*   By: seongspa <seongspa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:59:04 by seongspa          #+#    #+#             */
-/*   Updated: 2023/05/01 13:59:24 by seongspa         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:53:01 by seongspa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main()
     const WrongAnimal* i_w = new WrongCat();
     std::cout << j_w->getType() << " " << std::endl;
     std::cout << i_w->getType() << " " << std::endl;
-    i_w->makeSound(); //will output the cat sound!
+    i_w->makeSound(); //won't output the cat sound!
     j_w->makeSound();
     meta_w->makeSound();
     delete i_w;
