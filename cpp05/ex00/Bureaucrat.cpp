@@ -25,7 +25,8 @@ Bureaucrat::~Bureaucrat()
 // Operators
 Bureaucrat & Bureaucrat::operator=(const Bureaucrat &assign)
 {
-	_grade = assign.getGrade();
+	if (this != &assign)
+		_grade = assign.getGrade();
 	return *this;
 }
 
