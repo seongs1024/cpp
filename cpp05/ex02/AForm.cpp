@@ -65,6 +65,15 @@ void AForm::beSigned(const Bureaucrat &bur)
 	this->_singed = true;
 }
 
+bool AForm::eligible(Bureaucrat const &executor) const
+{
+	if (this->getSinged() == false)
+		throw NotSignedException();
+	if (executor.getGrade() > this->getExecutedGrade())
+		throw GradeTooLowException();
+    return true;
+}
+
 // Exceptions
 const char * AForm::GradeTooHighException::what() const throw()
 {
@@ -77,6 +86,10 @@ const char * AForm::GradeTooLowException::what() const throw()
 const char * AForm::NameRequiredException::what() const throw()
 {
 	return "Name is empty";
+}
+const char * AForm::NotSignedException::what() const throw()
+{
+	return "The form is not signed";
 }
 
 

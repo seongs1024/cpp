@@ -6,6 +6,9 @@ NAME		:=	bur
 SOURCES		:=	main.cpp \
 				Bureaucrat.cpp \
 				AForm.cpp \
+				ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp \
+				PresidentialPardonForm.cpp \
 
 #The Directories, Source, Includes, Dependencies
 TESTDIR		:=	test

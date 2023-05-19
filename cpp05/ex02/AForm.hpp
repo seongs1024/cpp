@@ -36,10 +36,19 @@ class AForm
 		class NameRequiredException : public std::exception {
 			virtual const char* what() const throw();
 		};
+		class NotSignedException : public std::exception {
+			virtual const char* what() const throw();
+		};
 
 		void beSigned(const Bureaucrat & bur);
 		
+		virtual void execute(Bureaucrat const & executor) const = 0;
+
+	protected:
+		bool eligible(Bureaucrat const & executor) const;
+
 	private:
+		AForm();
 		const std::string _name;
 		bool _singed;
 		const int _signed_grade;

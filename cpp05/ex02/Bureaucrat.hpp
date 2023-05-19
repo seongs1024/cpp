@@ -39,7 +39,10 @@ class Bureaucrat
 		void decreaseGrade();
 		void signForm(AForm & form);
 
+		void executeForm(AForm const & form);
+
 	private:
+		Bureaucrat();
 		const std::string _name;
 		int _grade;
 		

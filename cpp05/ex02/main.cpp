@@ -1,13 +1,29 @@
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main() {
-	Bureaucrat a("A", 150);
-	Form form("contract", 150, 150);
-	a.signForm(form);
-	std::cout << form;
+	Bureaucrat a("BurA", 3);
+	ShrubberyCreationForm scf("home");
+	RobotomyRequestForm rrf("robomy");
+	PresidentialPardonForm ppf("zb");
 
-	Bureaucrat b("B", 150);
-	Form form2("higher contract", 149, 150);
-	b.signForm(form2);
-	std::cout << form2;
+	try
+	{
+		a.signForm(scf);
+		a.executeForm(scf);
+
+		a.signForm(rrf);
+		a.executeForm(rrf);
+
+		a.signForm(ppf);
+		a.executeForm(ppf);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 }
