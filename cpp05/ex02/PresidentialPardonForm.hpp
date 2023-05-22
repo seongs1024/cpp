@@ -12,7 +12,7 @@ class PresidentialPardonForm: public virtual AForm
 		PresidentialPardonForm(const PresidentialPardonForm &copy);
 		
 		// Destructor
-		~PresidentialPardonForm();
+		virtual ~PresidentialPardonForm();
 		
 		// Operators
 		PresidentialPardonForm & operator=(const PresidentialPardonForm &assign);

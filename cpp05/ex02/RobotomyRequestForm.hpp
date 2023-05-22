@@ -12,7 +12,7 @@ class RobotomyRequestForm: public virtual AForm
 		RobotomyRequestForm(const RobotomyRequestForm &copy);
 		
 		// Destructor
-		~RobotomyRequestForm();
+		virtual ~RobotomyRequestForm();
 		
 		// Operators
 		RobotomyRequestForm & operator=(const RobotomyRequestForm &assign);
