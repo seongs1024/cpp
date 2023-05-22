@@ -14,6 +14,7 @@ int main() {
 	try
 	{
 		rrf = someRandomIntern.makeForm("wrong form", "hep");
+		delete rrf;
 	}
 	catch(const std::exception& e)
 	{
