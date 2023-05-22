@@ -39,6 +39,9 @@ class AForm
 		class NotSignedException : public std::exception {
 			virtual const char* what() const throw();
 		};
+		class AlreadySignedException : public std::exception {
+			virtual const char* what() const throw();
+		};
 
 		void beSigned(const Bureaucrat & bur);
 		

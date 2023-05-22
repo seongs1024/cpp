@@ -9,6 +9,7 @@ int main() {
 	ShrubberyCreationForm scf("home");
 	RobotomyRequestForm rrf("robomy");
 	PresidentialPardonForm ppf("zb");
+	Bureaucrat b("BurB", 65);
 
 	try
 	{
@@ -20,6 +21,10 @@ int main() {
 
 		a.signForm(ppf);
 		a.executeForm(ppf);
+
+		a.signForm(rrf);
+		b.signForm(rrf);
+		b.executeForm(rrf);
 	}
 	catch(const std::exception& e)
 	{
