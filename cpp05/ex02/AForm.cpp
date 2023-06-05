@@ -17,7 +17,7 @@ AForm::AForm(const std::string name, const int signed_grade, const int executed_
 	this->_singed = false;
 	if (this->_name.empty())
 		throw NameRequiredException();
-	if (this->_signed_grade < 1 || this->_executed_grade > 150)
+	if (this->_signed_grade < 1 || this->_executed_grade < 1)
 		throw GradeTooHighException();
 	if (this->_signed_grade > 150 || this->_executed_grade > 150)
 		throw GradeTooLowException();
@@ -60,19 +60,19 @@ int AForm::getExecutedGrade() const
 
 void AForm::beSigned(const Bureaucrat &bur)
 {
-	if(this->_singed == true)
-		throw AlreadySignedException();
 	if (bur.getGrade() > this->_signed_grade)
 		throw GradeTooLowException();
+	if(this->_singed == true)
+		throw AlreadySignedException();
 	this->_singed = true;
 }
 
 bool AForm::eligible(Bureaucrat const &executor) const
 {
-	if (this->getSinged() == false)
-		throw NotSignedException();
 	if (executor.getGrade() > this->getExecutedGrade())
 		throw GradeTooLowException();
+	if (this->getSinged() == false)
+		throw NotSignedException();
     return true;
 }
 

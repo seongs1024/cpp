@@ -16,7 +16,7 @@ int main() {
 		a.signForm(scf);
 		a.executeForm(scf);
 
-		a.signForm(rrf);
+		b.signForm(rrf);
 		a.executeForm(rrf);
 
 		a.signForm(ppf);
