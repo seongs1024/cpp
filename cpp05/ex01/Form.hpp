@@ -40,6 +40,8 @@ class Form
 		void beSigned(const Bureaucrat & bur);
 		
 	private:
+		Form();
+
 		const std::string _name;
 		bool _singed;
 		const int _signed_grade;

@@ -17,7 +17,7 @@ Form::Form(const std::string name, const int signed_grade, const int executed_gr
 	this->_singed = false;
 	if (this->_name.empty())
 		throw NameRequiredException();
-	if (this->_signed_grade < 1 || this->_executed_grade > 150)
+	if (this->_signed_grade < 1 || this->_executed_grade < 1)
 		throw GradeTooHighException();
 	if (this->_signed_grade > 150 || this->_executed_grade > 150)
 		throw GradeTooLowException();
