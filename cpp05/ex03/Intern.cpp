@@ -29,17 +29,19 @@ Intern & Intern::operator=(const Intern &assign)
 	return *this;
 }
 
-AForm * scformCreator(std::string target) {
+AForm * scformConstructor(std::string target) {
 	return new ShrubberyCreationForm(target);
 }
 
-AForm * rrformCreator(std::string target) {
+AForm * rrformConstructor(std::string target) {
 	return new RobotomyRequestForm(target);
 }
 
-AForm * ppformCreator(std::string target) {
+AForm * ppformConstructor(std::string target) {
 	return new PresidentialPardonForm(target);
 }
+
+typedef AForm * (*AFormConstructor)(std::string);
 
 AForm *Intern::makeForm(std::string form, std::string target) const
 {
@@ -49,20 +51,20 @@ AForm *Intern::makeForm(std::string form, std::string target) const
 		"robotomy request",
 		"presidential pardon",
 	};
-	AForm* (*FUNC_TABLE[N_FORMS])(std::string) = {
-		scformCreator,
-		rrformCreator,
-		ppformCreator,
+	AFormConstructor FUNC_TABLE[N_FORMS] = {
+		scformConstructor,
+		rrformConstructor,
+		ppformConstructor,
 	};
 
-	AForm * res = nullptr;
+	AForm * res = NULL;
 	for (size_t i = 0; i < N_FORMS; i++) {
 		if (form == FORMS[i]) {
 			res = FUNC_TABLE[i](target);
 			std::cout << "Intern creates " << res->getName() << std::endl;
 		}
 	}
-	if (res == nullptr)
+	if (res == NULL)
 		throw NoSuchFormException();
 	return res;
 }

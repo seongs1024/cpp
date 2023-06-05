@@ -6,13 +6,13 @@
 #include "Intern.hpp"
 
 int main() {
-	Intern	someRandomIntern;
-    AForm*	rrf;
-
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-	delete rrf;
 	try
 	{
+		Intern	someRandomIntern;
+    	AForm*	rrf;
+
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		delete rrf;
 		rrf = someRandomIntern.makeForm("wrong form", "hep");
 		delete rrf;
 	}
