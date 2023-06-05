@@ -36,6 +36,8 @@ class Bureaucrat
 		void decreaseGrade();
 		
 	private:
+		Bureaucrat();
+
 		const std::string _name;
 		int _grade;
 		
