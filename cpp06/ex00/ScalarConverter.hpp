@@ -3,6 +3,14 @@
 
 # include <string>
 
+enum Type
+{
+	Char,
+	Int,
+	Float,
+	Double,
+};
+
 class ScalarConverter
 {
 	public:
@@ -17,9 +25,24 @@ class ScalarConverter
 		
 		static void convert(std::string lit);
 
+		class ImpossibleConversionException : public std::exception {
+			virtual const char* what() const throw();
+		};
+		class PositiveInfException : public std::exception {
+			virtual const char* what() const throw();
+		};
+		class NegativeInfException : public std::exception {
+			virtual const char* what() const throw();
+		};
+		class NanException : public std::exception {
+			virtual const char* what() const throw();
+		};
+
 	private:
 		ScalarConverter();
 
+		static Type detectType(std::string &lit);
+		// static std::ostringstream toChar(std::string &)
 };
 
 #endif
