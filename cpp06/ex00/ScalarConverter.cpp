@@ -1,7 +1,13 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 #include <iomanip>
-#include <sstream>
+#include "Char.hpp"
+#include "Double.hpp"
+#include "Float.hpp"
+#include "Int.hpp"
+#include "Nan.hpp"
+#include "NegativeInf.hpp"
+#include "PositiveInf.hpp"
 
 // Constructors
 ScalarConverter::ScalarConverter()
@@ -18,18 +24,18 @@ bool in_digit(char c)
 	return c >= '0' && c <= '9';
 }
 
-Type ScalarConverter::detectType(std::string &lit)
+AType * ScalarConverter::detectType(std::string &lit)
 {
 	if (lit.length() == 0)
-		throw ImpossibleConversionException();
-	if (lit.length() == 1 && printable(lit[0]))
-		return Char;
+		throw AType::ImpossibleConversionException();
+	if (lit.length() == 1 && printable(lit[0]) && !in_digit(lit[0]))
+		return new Char(lit);
 	if (lit == "-inf" || lit == "-inff")
-		throw NegativeInfException();
+		return new NegativeInf();
 	if (lit == "+inf" || lit == "inf" || lit == "+inff" || lit == "inff")
-		throw PositiveInfException();
+		return new PositiveInf();
 	if (lit == "nan" || lit == "nanf")
-		throw NanException();
+		return new Nan();
 
 	bool dot = false, last_f = false;
 	for (size_t i = 0; i < lit.length(); i++)
@@ -43,17 +49,17 @@ Type ScalarConverter::detectType(std::string &lit)
 		else if ((lit[i] == '-' || lit[i] == '+') && i == 0)
 			continue;
 		else
-			throw ImpossibleConversionException();
+			throw AType::ImpossibleConversionException();
 	}
 
 	if (last_f)
-		return Float;
+		return new Float(lit);
 	else if (dot)
-		return Double;
+		return new Double(lit);
 	// else if (!dot && last_f)
 	// 	return Unknown;
 	else
-		return Int;
+		return new Int(lit);
 }
 
 ScalarConverter::ScalarConverter(const ScalarConverter &copy)
@@ -79,110 +85,59 @@ ScalarConverter & ScalarConverter::operator=(const ScalarConverter &assign)
 
 void ScalarConverter::convert(std::string lit)
 {
-	std::stringstream ss(lit);
-	char c;
-	double d;
-	float f;
-	int i;
+	AType * type = NULL;
 
 	try
 	{
-		switch (detectType(lit))
-		{
-		case Char:
-			ss >> c;
-			if (ss.fail())
-				throw ImpossibleConversionException();
-			std::cout
-				<< "char: " << c << "\n"
-				<< "int: " << static_cast<int>(c) << "\n"
-				<< "float: " << std::showpoint << static_cast<float>(c) << "f\n"
-				<< "double: " << std::showpoint << static_cast<double>(c) << std::endl;
-			break;
-		case Int:
-			ss >> i;
-			if (ss.fail())
-				throw ImpossibleConversionException();
-			std::cout
-				<< "char: " << static_cast<char>(i) << "\n"
-				<< "int: " << i << "\n"
-				<< "float: " << std::showpoint << static_cast<float>(i) << "f\n"
-				<< "double: " << std::showpoint << static_cast<double>(i) << std::endl;
-			break;
-		case Float:
-			ss >> f;
-			if (ss.fail())
-				throw ImpossibleConversionException();
-			std::cout
-				<< "char: " << static_cast<char>(f) << "\n"
-				<< "int: " << static_cast<int>(f) << "\n"
-				<< "float: " << std::showpoint << f << "f\n"
-				<< "double: " << std::showpoint << static_cast<double>(f) << std::endl;
-			break;
-		case Double:
-			ss >> d;
-			if (ss.fail())
-				throw ImpossibleConversionException();
-			std::cout
-				<< "char: " << static_cast<char>(d) << "\n"
-				<< "int: " << static_cast<int>(d) << "\n"
-				<< "float: " << std::showpoint << static_cast<float>(d) << "f\n"
-				<< "double: " << std::showpoint << d << std::endl;
-			break;
-		default:
-			throw ImpossibleConversionException();
-			break;
-		}
+		type = detectType(lit);
 	}
-	catch(const ScalarConverter::ImpossibleConversionException& e)
+	catch(const AType::ImpossibleConversionException& e)
 	{
 		std::cout
 			<< "char: impossible\n"
 			<< "int: impossible\n"
 			<< "float: impossible\n"
 			<< "double: impossible" << std::endl;
+		return ;
 	}
-	catch(const ScalarConverter::PositiveInfException& e)
+	if (type)
 	{
-		std::cout
-			<< "char: impossible\n"
-			<< "int: impossible\n"
-			<< "float: +inff\n"
-			<< "double: +inf" << std::endl;
+		try
+		{
+			char c = static_cast<char>(*type);
+			std::cout << "char: " << c << std::endl;
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << "char: " << e.what() << std::endl;
+		}
+		try
+		{
+			int i = static_cast<int>(*type);
+			std::cout << "int: " << i << std::endl;
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << "int: " << e.what() << std::endl;
+		}
+		try
+		{
+			float f = static_cast<float>(*type);
+			std::cout << "float: " << std::showpoint << f << "f" << std::endl;
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << "float: " << e.what() << std::endl;
+		}
+		try
+		{
+			double d = static_cast<double>(*type);
+			std::cout << "double: " << std::showpoint << d << std::endl;
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << "double: " << e.what() << std::endl;
+		}
+		delete type;
 	}
-	catch(const ScalarConverter::NegativeInfException& e)
-	{
-		std::cout
-			<< "char: impossible\n"
-			<< "int: impossible\n"
-			<< "float: -inff\n"
-			<< "double: -inf" << std::endl;
-	}
-	catch(const ScalarConverter::NanException& e)
-	{
-		std::cout
-			<< "char: impossible\n"
-			<< "int: impossible\n"
-			<< "float: nanf\n"
-			<< "double: nan" << std::endl;
-	}
-
-}
-
-// Exceptions
-const char * ScalarConverter::ImpossibleConversionException::what() const throw()
-{
-	return "impossible";
-}
-const char * ScalarConverter::PositiveInfException::what() const throw()
-{
-	return "+inf";
-}
-const char * ScalarConverter::NegativeInfException::what() const throw()
-{
-	return "-inf";
-}
-const char * ScalarConverter::NanException::what() const throw()
-{
-	return "nan";
 }

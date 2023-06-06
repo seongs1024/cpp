@@ -5,6 +5,14 @@ NAME		:=	convert
 #Source Files
 SOURCES		:=	main.cpp \
 				ScalarConverter.cpp \
+				AType.cpp \
+				Char.cpp \
+				Double.cpp \
+				Float.cpp \
+				Int.cpp \
+				Nan.cpp \
+				NegativeInf.cpp \
+				PositiveInf.cpp \
 				
 #The Directories, Source, Includes, Dependencies
 TESTDIR		:=	test
