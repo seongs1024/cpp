@@ -29,8 +29,8 @@ class AType
         virtual operator float() const = 0;
         virtual operator double() const = 0;
 
-	protected:
 		static bool printable(char c);
+		static bool in_digit(char c);
 
 };
 

@@ -14,21 +14,11 @@ ScalarConverter::ScalarConverter()
 {
 }
 
-bool printable(char c)
-{
-	return c >= 0x20 && c < 0x7f;
-}
-
-bool in_digit(char c)
-{
-	return c >= '0' && c <= '9';
-}
-
 AType * ScalarConverter::detectType(std::string &lit)
 {
 	if (lit.length() == 0)
 		throw AType::ImpossibleConversionException();
-	if (lit.length() == 1 && printable(lit[0]) && !in_digit(lit[0]))
+	if (lit.length() == 1 && AType::printable(lit[0]) && !AType::in_digit(lit[0]))
 		return new Char(lit);
 	if (lit == "-inf" || lit == "-inff")
 		return new NegativeInf();
@@ -40,7 +30,7 @@ AType * ScalarConverter::detectType(std::string &lit)
 	bool dot = false, last_f = false;
 	for (size_t i = 0; i < lit.length(); i++)
 	{
-		if (in_digit(lit[i]))
+		if (AType::in_digit(lit[i]))
 			continue;
 		else if (lit[i] == '.' && dot == false)
 			dot = true;

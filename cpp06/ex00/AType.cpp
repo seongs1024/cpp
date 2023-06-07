@@ -29,6 +29,11 @@ bool AType::printable(char c)
     return c >= 0x20 && c < 0x7f;;
 }
 
+bool AType::in_digit(char c)
+{
+	return c >= '0' && c <= '9';
+}
+
 // Exceptions
 const char * AType::ImpossibleConversionException::what() const throw()
 {
