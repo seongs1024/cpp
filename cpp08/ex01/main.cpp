@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Span.hpp"
 
 int main()
@@ -19,6 +20,19 @@ int main()
     {
         std::cerr << e.what() << '\n';
     }
-    
+    try
+    {
+        int arr[] = {6, 3, 17, 9, 11};
+        std::vector<int> vec(arr, arr + 5);
+        Span sp = Span(5);
+        sp.addNumber<std::vector<int> >(vec.begin(), vec.end());
+
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     return 0;
 }

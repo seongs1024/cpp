@@ -1,7 +1,5 @@
-#ifndef SPAN_HPP
-# define SPAN_HPP
-
-# include <list>
+#pragma once
+#include <list>
 
 class Span
 {
@@ -28,6 +26,9 @@ class Span
 		int shortestSpan();
 		int longestSpan();
 		
+		template<typename T>
+		void addNumber(typename T::const_iterator begin, typename T::const_iterator end);
+
 	private:
 		Span();
 		std::list<int>::iterator next(std::list<int>::iterator iter, int n);
@@ -37,4 +38,13 @@ class Span
 		int _shortest_span;
 };
 
-#endif
+template<typename T>
+void Span::addNumber(typename T::const_iterator begin, typename T::const_iterator end)
+{
+	if (std::distance(begin, end) + _list.size() > _capa)
+		throw OverCapacityException();
+	for (; begin != end; ++begin)
+	{
+		addNumber(*begin);
+	}
+}
