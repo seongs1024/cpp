@@ -36,7 +36,7 @@ Double::operator char() const
 	char c;
 
 	if(_value > std::numeric_limits<char>::max() ||
-		_value < std::numeric_limits<char>::min())
+		_value < 0)
 		throw ImpossibleConversionException();
 	c = static_cast<char>(_value);
 	if (AType::printable(c) == false)
@@ -55,7 +55,7 @@ Double::operator int() const
 Double::operator float() const
 {
 	if(_value > std::numeric_limits<float>::max() ||
-		_value < std::numeric_limits<float>::min())
+		_value < -std::numeric_limits<float>::max())
 		throw ImpossibleConversionException();
 	return static_cast<float>(_value);
 }

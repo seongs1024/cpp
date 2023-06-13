@@ -36,7 +36,7 @@ Int::operator char() const
 	char c;
 
 	if(_value > std::numeric_limits<char>::max() ||
-		_value < std::numeric_limits<char>::min())
+		_value < 0)
 		throw ImpossibleConversionException();
 	c = static_cast<char>(_value);
 	if (AType::printable(c) == false)
