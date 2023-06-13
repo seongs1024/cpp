@@ -43,7 +43,10 @@ AType * ScalarConverter::detectType(std::string &lit)
 	}
 
 	if (last_f)
+	{
+		lit.pop_back();
 		return new Float(lit);
+	}
 	else if (dot)
 		return new Double(lit);
 	// else if (!dot && last_f)
@@ -95,7 +98,7 @@ void ScalarConverter::convert(std::string lit)
 		try
 		{
 			char c = static_cast<char>(*type);
-			std::cout << "char: " << c << std::endl;
+			std::cout << "char: '" << c << "'" << std::endl;
 		}
 		catch(const std::exception& e)
 		{
