@@ -4,11 +4,21 @@
 # include <string>
 # include <map>
 
+struct Date
+{
+	int year;
+	int month;
+	int day;
+	
+	bool operator<(const Date & rhs) const;
+	bool operator==(const Date & rhs) const;
+};
+
 class BitcoinExchange
 {
 	public:
 		// Constructors
-		BitcoinExchange(const char * price_db_path, const char * temp);
+		BitcoinExchange(const char * price_db_path);
 		
 		// Destructor
 		~BitcoinExchange();
@@ -25,29 +35,40 @@ class BitcoinExchange
 		public:
 			virtual const char* what() const throw();
 		};
+		class BadHeaderException : public std::exception {
+		public:
+			virtual const char* what() const throw();
+		};
 		class BadInputException : public std::exception {
+		public:
 			virtual const char* what() const throw();
 		};
 		class TooLargeNumberException : public std::exception {
 			virtual const char* what() const throw();
 		};
-		class PriceDbNotExistsException : public std::exception {
+		class EmptyFileException : public std::exception {
 			virtual const char* what() const throw();
 		};
-		class CorruptedFileException : public std::exception {
+		class BadDbException : public std::exception {
 			virtual const char* what() const throw();
 		};
 		
+		void factored_price(std::istream & ifs, const std::string & header_fmt, const std::string & delim_fmt);
+
 	private:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange & operator=(const BitcoinExchange &assign);
 
-		typedef std::map<std::string, double> Prices;
+		typedef std::map<Date, double> Prices;
 
-		Prices makePrices(const char * price_db_path);
+		Prices serialize(std::istream & ifs, const std::string & header_fmt, const std::string & delim_fmt);
+		void header(std::istream & is, std::string fmt);
+		void delim(std::istream & is, std::string fmt);
 
 		Prices prices;
 };
+
+std::istream& operator>>(std::istream& ss, Date& date);
 
 #endif

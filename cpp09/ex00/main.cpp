@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "BitcoinExchange.hpp"
 
 #define PRICE_DB_PATH ("data.csv")
@@ -11,7 +12,13 @@ int main(int argc, char *argv[]) {
 
     try
     {
-        BitcoinExchange(PRICE_DB_PATH, argv[1]);
+        BitcoinExchange exc(PRICE_DB_PATH);
+
+        std::ifstream rate_db(argv[1]);
+        if (!rate_db.is_open())
+            throw BitcoinExchange::FileOpenException();
+        
+        exc.factored_price(rate_db, "date | value", " | ");
     }
     catch(const std::exception& e)
     {
