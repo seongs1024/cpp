@@ -23,6 +23,8 @@ Rpn::Rpn(std::string expr)
 			stack.push(op - '0');
 		else if (op == '+')
 		{
+			if (stack.size() < 2)
+				throw WrongToken();
 			double a = stack.top();
 			stack.pop();
 			double b = stack.top();
@@ -31,6 +33,8 @@ Rpn::Rpn(std::string expr)
 		}
 		else if (op == '-')
 		{
+			if (stack.size() < 2)
+				throw WrongToken();
 			double a = stack.top();
 			stack.pop();
 			double b = stack.top();
@@ -39,6 +43,8 @@ Rpn::Rpn(std::string expr)
 		}
 		else if (op == '*')
 		{
+			if (stack.size() < 2)
+				throw WrongToken();
 			double a = stack.top();
 			stack.pop();
 			double b = stack.top();
@@ -47,6 +53,8 @@ Rpn::Rpn(std::string expr)
 		}
 		else if (op == '/')
 		{
+			if (stack.size() < 2)
+				throw WrongToken();
 			double a = stack.top();
 			if (a == 0.0)
 				throw DividedZero();
