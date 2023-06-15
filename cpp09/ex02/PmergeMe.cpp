@@ -1,7 +1,7 @@
 #include "PmergeMe.hpp"
 
 #include <iostream>
-#include <sstream>
+#include <algorithm>
 
 // Constructors
 PmergeMe::PmergeMe(int size): _size(size)
@@ -14,6 +14,21 @@ PmergeMe::PmergeMe(int size): _size(size)
 // Destructor
 PmergeMe::~PmergeMe()
 {
+}
+
+size_t PmergeMe::size() const
+{
+	return _size;
+}
+
+PmergeMe::Container1 & PmergeMe::con1()
+{
+	return _con1;
+}
+
+PmergeMe::Container2 & PmergeMe::con2()
+{
+	return _con2;
 }
 
 void PmergeMe::push(std::string lit)
@@ -30,21 +45,16 @@ void PmergeMe::push(std::string lit)
 	_con2.push_back(num);
 }
 
-void PmergeMe::printCon1(void) const
+void PmergeMe::sortCon1(Container1 & con)
 {
-	for (Container1::const_iterator it = _con1.begin(); it != _con1.end(); ++it)
-	{
-		std::cout << '\t' << *it;
-	}
+	std::sort(con.begin(), con.end());
 }
 
-void PmergeMe::printCon2(void) const
+void PmergeMe::sortCon2(Container2 & con)
 {
-	for (Container2::const_iterator it = _con2.begin(); it != _con2.end(); ++it)
-	{
-		std::cout << '\t' << *it;
-	}
+	(void)con;
 }
+
 
 // Exceptions
 const char * PmergeMe::WrongToken::what() const throw()
