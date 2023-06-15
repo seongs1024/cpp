@@ -80,14 +80,16 @@ void BitcoinExchange::factored_price(
 
 			for (Prices::const_iterator it = prices.begin(); it != prices.end(); ++it)
 			{
-				if (it->first == date)
+				Prices::const_iterator next = it;
+				std::advance(next, 1);
+				if (it->first == date || next == prices.end())
 				{
 					// std::cout << "LB: " << (it->first).year << '-' << (it->first).month << '-' << (it->first).day << ": ";
 					std::cout << date.year << '-' << date.month << '-' << date.day << " => "
 						<< price << " = " << price * (it->second) << std::endl;
 					break ;
 				}
-				else if (date < it->first || it == --(prices.begin()))
+				else if (date < it->first)
 				{
 					it--;
 					// std::cout << "LB: " << (it->first).year << '-' << (it->first).month << '-' << (it->first).day << ": ";
