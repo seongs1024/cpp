@@ -31,14 +31,14 @@ class PmergeMe
 		Container2 & con2();
 
 		void push(std::string lit);
-		static void sortCon1(Container1 & con);
-		static void sortCon2(Container2 & con);
+		static Container1 sortCon1(Container1 & con);
+		static Container2 sortCon2(Container2 & con);
 
 		template<class T>
 		static std::string print(const T & con);
 
 		template<class T>
-		static std::clock_t bench(T & con, void (*sort)(T &));
+		static std::clock_t bench(T & con, T (*sort)(T &));
 
 	private:
 		PmergeMe();
@@ -68,10 +68,10 @@ std::string PmergeMe::print(const T &con)
 }
 
 template <class T>
-std::clock_t PmergeMe::bench(T &con, void (*sort)(T &))
+std::clock_t PmergeMe::bench(T &con, T (*sort)(T &))
 {
 	std::clock_t start = std::clock();
-	sort(con);
+	con = sort(con);
 	std::clock_t end = std::clock();
 	return end - start;
 }
