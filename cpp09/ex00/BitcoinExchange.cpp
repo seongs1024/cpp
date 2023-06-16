@@ -43,7 +43,8 @@ BitcoinExchange::Prices BitcoinExchange::serialize(
 		if (price < 0)
 			throw BadDbException();
 
-		prices.insert(std::pair<Date, double>(date, price));
+		prices[date] = price;
+		prices[date] = price;
 	}
 	if (prices.size() == 0)
 		throw EmptyFileException();
@@ -78,26 +79,20 @@ void BitcoinExchange::factored_price(
 			if (price > 1000)
 				throw TooLargeNumberException();
 
-			for (Prices::const_iterator it = prices.begin(); it != prices.end(); ++it)
-			{
-				Prices::const_iterator next = it;
-				std::advance(next, 1);
-				if (it->first == date || next == prices.end())
-				{
-					// std::cout << "LB: " << (it->first).year << '-' << (it->first).month << '-' << (it->first).day << ": ";
-					std::cout << date.year << '-' << date.month << '-' << date.day << " => "
-						<< price << " = " << price * (it->second) << std::endl;
-					break ;
-				}
-				else if (date < it->first)
-				{
-					it--;
-					// std::cout << "LB: " << (it->first).year << '-' << (it->first).month << '-' << (it->first).day << ": ";
-					std::cout << date.year << '-' << date.month << '-' << date.day << " => "
-						<< price << " = " << price * (it->second) << std::endl;
-					break ;
-				}
+			Prices::const_iterator it = prices.find(date);
+			if (it == prices.end()) {
+				it = prices.lower_bound(date);
+				if (it != prices.begin())
+					--it;
 			}
+			if (date < it->first)
+				throw BadInputException();
+			std::cout //<< it->first.year << '-' << it->first.month << '-' << it->first.day << " : "
+				<< date.year << '-' << date.month << '-' << date.day << " => "
+				<< price 
+				//<< " * " << it->second 
+				<< " = " << price * (it->second) << std::endl;
+
 		}
 		catch(const BadInputException & e)
 		{
@@ -182,18 +177,5 @@ std::istream &operator>>(std::istream &ss, Date &date)
 
 bool Date::operator<(const Date &rhs) const
 {
-	if (year < rhs.year)
-		return year < rhs.year;
-	if (month < rhs.month)
-		return month < rhs.month;
-	return day < rhs.day;
-}
-
-bool Date::operator==(const Date &rhs) const
-{
-	if (year != rhs.year)
-		return false;
-	if (month != rhs.month)
-		return false;
-	return day == rhs.day;
+	return std::make_pair(year, std::make_pair(month, day)) < std::make_pair(rhs.year, std::make_pair(rhs.month, rhs.day));
 }

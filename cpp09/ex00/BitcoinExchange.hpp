@@ -11,7 +11,6 @@ struct Date
 	int day;
 	
 	bool operator<(const Date & rhs) const;
-	bool operator==(const Date & rhs) const;
 };
 
 class BitcoinExchange
